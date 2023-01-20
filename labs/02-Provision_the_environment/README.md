@@ -5,15 +5,9 @@
 Start Minikube
 
 ```console
-$ minikube start
-😄  minikube v1.19.0 on Darwin 11.2.3
-✨  Using the docker driver based on existing profile
-👍  Starting control plane node minikube in cluster minikube
-🔄  Restarting existing docker container for "minikube" ...
-🐳  Preparing Kubernetes v1.20.2 on Docker 20.10.5 ...
-🔎  Verifying Kubernetes components...
-    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
-🌟  Enabled addons: storage-provisioner, default-storageclass
+$ minikube start --kubernetes-version='v1.25.3'
+😄   minikube v1.28.0 on Darwin 13.1 (arm64)
+... 
 🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 ```
 
@@ -27,6 +21,12 @@ host: Running
 kubelet: Running
 apiserver: Running
 kubeconfig: Configured
+```
+
+```console
+$ kubectl get nodes
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   22s   v1.25.3
 ```
 
 ## Vault
@@ -46,7 +46,7 @@ Update Complete. ⎈Happy Helming!⎈
 ```
 
 ```console
-$ helm install vault hashicorp/vault --set "server.dev.enabled=true" --namespace vault --create-namespace
+$ helm install vault hashicorp/vault --set "server.dev.enabled=false" --namespace vault --create-namespace --version v0.23.0 --values vault-values.yaml
 NAME: vault
 LAST DEPLOYED: Sat Mar 19 01:03:03 2022
 NAMESPACE: vault
@@ -72,6 +72,6 @@ Check the installation
 ```console
 $ kubectl get pods -n vault
 NAME                                   READY   STATUS    RESTARTS   AGE
-vault-agent-injector-f96b59db4-m85wf   1/1     Running   0          31s
+vault-agent-injector-f96b59db4-m85wf   0/1     Running   0          31s
 vault-0                                1/1     Running   0          31s
 ```
