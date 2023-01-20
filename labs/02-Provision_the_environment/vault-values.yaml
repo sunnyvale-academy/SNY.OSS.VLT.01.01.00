@@ -615,7 +615,7 @@ server:
 
     # Configures the service type for the main Vault service.  Can be ClusterIP
     # or NodePort.
-    #type: ClusterIP
+    type: NodePort
 
     # Do not wait for pods to be ready
     publishNotReadyAddresses: true
