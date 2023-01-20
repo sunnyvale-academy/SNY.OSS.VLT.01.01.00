@@ -33,3 +33,4 @@ identity_policies    []
 policies             ["root"]
 ```
 
+If you have successfully logged in, it means that the Vault CLI is configured correctly (remember to set the VAULT_TOKEN and VAULT_ADDRESS variable if you change terminal).
