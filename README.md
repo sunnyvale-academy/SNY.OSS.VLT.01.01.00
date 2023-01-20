@@ -9,7 +9,11 @@ Learning HashiCorp Vault
 
 [02 - Provision the environment](./labs/02-Provision_the_environment/README.md)
 
-[03 - Inject secrets as container variables](./labs/03-Inject_secrets_as_container_variables/README.md)
+[03 - Initialize and unseal Vault](./labs/03-Initialize_and_unseal_vault/README.md)
+
+[04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
+
+[05 - Explore the Vault GUI](./labs/05-Explore_the_Vault_GUI/README.md)
 
 ## Appendices
 
