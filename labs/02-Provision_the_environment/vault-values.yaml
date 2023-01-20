@@ -628,7 +628,7 @@ server:
 
     # If type is set to "NodePort", a specific nodePort value can be configured,
     # will be random if left blank.
-    #nodePort: 30000
+    nodePort: 30534
 
     # When HA mode is enabled
     # If type is set to "NodePort", a specific nodePort value can be configured,
