@@ -3,6 +3,12 @@
 Vault CLI can be downloaded at https://developer.hashicorp.com/vault/downloads
 
 ```console
-export VAULT_TOKEN=hvs.zUnlNOFDFTeQxM8rQjza4l8r
-export VAULT_ADDR=http://$(minikube ip):8200
+export VAULT_TOKEN=$VAULT_ROOT_TOKEN
+export VAULT_ADDR=http://$(minikube ip):30534
+```
+
+Login to Vault
+
+```console
+$ vault login $VAULT_TOKEN
 ```

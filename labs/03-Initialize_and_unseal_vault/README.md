@@ -10,7 +10,7 @@ Set some variables
 
 ```console
 $ export VAULT_UNSEAL_KEY=$(cat ../keys.json | jq -r ".unseal_keys_b64[]")
-$ export VAULT_ROOT_KEY=$(cat ../keys.json | jq -r ".root_token")
+$ export VAULT_ROOT_TOKEN=$(cat ../keys.json | jq -r ".root_token")
 ```
 
 Now unseal Vault using the key (unseal threshold=1)
