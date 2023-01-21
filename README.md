@@ -15,6 +15,8 @@ Learning HashiCorp Vault
 
 [05 - Explore the Vault GUI](./labs/05-Explore_the_Vault_GUI/README.md)
 
+[06 - Your first secret](./labs/06-Your_first_secret/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
