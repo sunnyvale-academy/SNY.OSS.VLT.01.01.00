@@ -17,6 +17,8 @@ Learning HashiCorp Vault
 
 [06 - Your first secret](./labs/06-Your_first_secret/README.md)
 
+[07 - Token authentication](./labs/07-Token_authentication/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
