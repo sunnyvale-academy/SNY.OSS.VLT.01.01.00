@@ -88,7 +88,7 @@ Revoke the first token you created.
 
 
 ```console
-$ vault token revoke hvs.hXbuQ70aFByRnJeAYsuqgnXt
+$ vault token revoke hvs.J87YulUbXfPef2u8lcyqOFYr
 Success! Revoked token (if it existed)
 ```
 
@@ -97,7 +97,7 @@ The token has been revoked.
 An attempt to login with the revoked token will result in an error.
 
 ```console
-$ vault login hvs.hXbuQ70aFByRnJeAYsuqgnXt
+$ vault login hvs.J87YulUbXfPef2u8lcyqOFYr
 Error authenticating: error looking up token: Error making API request.
 
 URL: GET http://localhost:8200/v1/auth/token/lookup-self
