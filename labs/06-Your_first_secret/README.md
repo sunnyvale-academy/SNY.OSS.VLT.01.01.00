@@ -1,5 +1,20 @@
 # Your first secret
 
+## Prerequisites 
+
+Having completed labs:
+
+- [00 - Prerequisites](./labs/00-Prerequisites/README.md)
+
+- [01 - Fork and clone this repo](./labs/01-Fork_and_clone_this_repo/README.md)
+
+- [02 - Provision the environment](./labs/02-Provision_the_environment/README.md)
+
+- [03 - Initialize and unseal Vault](./labs/03-Initialize_and_unseal_vault/README.md)
+
+- [04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
+
+## Introduction
 
 Key/Value secrets engine is a generic key-value store used to store arbitrary secrets within the configured physical storage for Vault. Secrets written to Vault are encrypted and then written to backend storage. Therefore, the backend storage (in our case the Vault local FS) mechanism never sees the unencrypted value and doesn't have the means necessary to decrypt it without Vault.
 

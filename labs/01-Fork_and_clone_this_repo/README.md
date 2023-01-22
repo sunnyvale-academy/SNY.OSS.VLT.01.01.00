@@ -3,6 +3,7 @@
 ## Prerequisites
 
 - A github account
+- Having completed the lab [00 - Prerequisites](./labs/00-Prerequisites/README.md)
 
 ## Fork the repo
 

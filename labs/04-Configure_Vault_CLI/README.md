@@ -1,5 +1,19 @@
 # Configure the Vault CLI
 
+## Prerequisites 
+
+Having completed labs:
+
+- [00 - Prerequisites](./labs/00-Prerequisites/README.md)
+
+- [01 - Fork and clone this repo](./labs/01-Fork_and_clone_this_repo/README.md)
+
+- [02 - Provision the environment](./labs/02-Provision_the_environment/README.md)
+
+- [03 - Initialize and unseal Vault](./labs/03-Initialize_and_unseal_vault/README.md)
+
+## Configure the CLI
+
 Vault CLI can be downloaded at https://developer.hashicorp.com/vault/downloads
 
 ```console

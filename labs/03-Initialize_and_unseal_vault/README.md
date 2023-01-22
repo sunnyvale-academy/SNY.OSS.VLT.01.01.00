@@ -1,6 +1,16 @@
 # Initialize and unseal Vault
 
-Initialize Vault
+## Prerequisites 
+
+Having completed labs:
+
+- [00 - Prerequisites](./labs/00-Prerequisites/README.md)
+
+- [01 - Fork and clone this repo](./labs/01-Fork_and_clone_this_repo/README.md)
+
+- [02 - Provision the environment](./labs/02-Provision_the_environment/README.md)
+
+## Initialize Vault
 
 ```console
 $ kubectl exec -n vault vault-0 -- vault operator init -key-shares=1 -key-threshold=1 -format=json > ../keys.json             
@@ -11,6 +21,8 @@ Set the VAULT_UNSEAL_KEY variable
 ```console
 $ export VAULT_UNSEAL_KEY=$(cat ../keys.json | jq -r ".unseal_keys_b64[]")
 ```
+
+## Unseal Vault
 
 Now unseal Vault using the key (unseal threshold=1)
 
