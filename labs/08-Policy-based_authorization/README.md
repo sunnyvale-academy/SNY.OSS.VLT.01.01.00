@@ -89,8 +89,6 @@ policies            [default my-policy]
 
 The policy enables the create and update capabilities for every path within the kv/ engine except one.
 
-The policy enables the create and update capabilities for every path within the vk/ engine except one.
-
 Write a secret to the path kv/data/creds.
 
 ```console
