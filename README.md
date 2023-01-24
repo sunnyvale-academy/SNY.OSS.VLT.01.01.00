@@ -19,6 +19,8 @@ Learning HashiCorp Vault
 
 [07 - Token authentication](./labs/07-Token_authentication/README.md)
 
+[08 - Policy-based authorization](./labs/08-Policy-based_authorization/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)

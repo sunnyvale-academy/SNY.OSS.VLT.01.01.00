@@ -17,9 +17,11 @@ Having completed labs:
 Vault CLI can be downloaded at https://developer.hashicorp.com/vault/downloads
 
 ```console
-$ export VAULT_TOKEN=$(cat ../keys.json | jq -r ".root_token")
+$ export VAULT_ROOT_TOKEN=$(cat ../keys.json | jq -r ".root_token")
+$ export VAULT_TOKEN=$VAULT_ROOT_TOKEN
 $ export VAULT_ADDR=http://localhost:8200
 ```
+We expect that the three variables listed here before are set in the terminal you use for the labs from now on.
 
 Run a port-forward (in another terminal)
 
