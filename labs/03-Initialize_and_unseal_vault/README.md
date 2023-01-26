@@ -27,7 +27,7 @@ $ export VAULT_UNSEAL_KEY=$(cat ../keys.json | jq -r ".unseal_keys_b64[]")
 Now unseal Vault using the key (unseal threshold=1)
 
 ```console
-$ kubectl exec vault-0 -- vault operator unseal $VAULT_UNSEAL_KEY
+$ kubectl exec vault-0 -n vault -- vault operator unseal $VAULT_UNSEAL_KEY
 Key             Value
 ---             -----
 Seal Type       shamir
