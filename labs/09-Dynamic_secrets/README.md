@@ -18,6 +18,8 @@ Having completed labs:
 
 - [04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
 
+- Having downlaoded and installed the aws CLI locally (see https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
 # Confiture the Vault AWS secret engine
 
 Suppose you need Vault to dynamically create secrets to let users access to AWS, in this case you need to activate the AWS secret engine:
@@ -98,6 +100,17 @@ security_token     <nil>
 ```
 
 Success! The access and secret key can now be used to perform any EC2 operations within AWS. Notice that these keys are new, they are not the keys you entered earlier. If you were to run the command a second time, you would get a new access key pair. Each time you read from aws/creds/:name, Vault will connect to AWS and generate a new IAM user and key pair.
+
+To test if the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY provided by Vault let you login on AWS, type the following command (make shure to substitute the placeholders with the actual values returned by Vault). 
+
+```console
+$ AWS_ACCESS_KEY_ID=<aws_access_key_id> AWS_SECRET_ACCESS_KEY=<aws_secret_key> aws ec2 describe-instances | jq
+{
+  "Reservations": []
+}
+```
+
+If the output is similar to the one here above, the aws CLI logged in successfully with the credentials provided by Vault.
 
 Copy the full path of this lease_id value found in the output. This value is used for renewal, revocation, and inspection.
 
