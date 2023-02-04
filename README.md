@@ -23,6 +23,8 @@ Learning HashiCorp Vault
 
 [09 - Dyanamic secrets](./labs/09-Dynamic_secrets/README.md)
 
+[10 - Vault web UI](./labs/10-Vault_web_UI/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
