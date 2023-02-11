@@ -25,6 +25,10 @@ Learning HashiCorp Vault
 
 [10 - Vault web UI](./labs/10-Vault_web_UI/README.md)
 
+[11 - More about tokens](./labs/11-More_about_tokens/README.md)
+
+[12 - OIDC authentication method](./labs/12-OIDC_authentication_method/README.md)
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
