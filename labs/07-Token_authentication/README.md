@@ -1,5 +1,29 @@
 # Token authentication
 
+## Prerequisites 
+
+Having completed labs:
+
+- [00 - Prerequisites](./labs/00-Prerequisites/README.md)
+
+- [01 - Fork and clone this repo](./labs/01-Fork_and_clone_this_repo/README.md)
+
+- [02 - Provision the environment](./labs/02-Provision_the_environment/README.md)
+
+- [03 - Initialize and unseal Vault](./labs/03-Initialize_and_unseal_vault/README.md)
+
+- [04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
+
+## Authenticating using tokens
+
+Before a client can interact with Vault, it must authenticate against an auth method to acquire a token. This token has policies attached so that the behavior of the client can be governed.
+
+![](img/1.png)
+
+Auth methods perform authentication to verify the user or machine-supplied information. Some of the supported auth methods are targeted towards users while others are targeted toward machines or apps.
+
+Token authentication is targeted toward machines.
+
 Token authentication is automatically enabled. When you initialized the server, the output displayed a root token. 
 
 The Vault CLI read the root token from the `$VAULT_TOKEN` environment variable. This root token can perform any operation within Vault because it is assigned the root policy (we will know more about policies later). 
