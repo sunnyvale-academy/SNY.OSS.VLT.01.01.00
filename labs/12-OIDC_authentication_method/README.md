@@ -214,10 +214,11 @@ Create the developer policy:
 ```console
 $ vault policy write vault-policy-developer-read - << EOF
 # Read permission on the k/v secrets
-path "/secret/*" {
+path "/kv/*" {
     capabilities = ["read", "list"]
 }
 EOF
+Success! Uploaded policy: vault-policy-developer-read
 ```
 
 Create the admin policy:
@@ -229,15 +230,182 @@ path "*" {
         capabilities = ["sudo","read","create","update","delete","list","patch"]
 }
 EOF
+Success! Uploaded policy: vault-policy-admin
 ```
 
 ## Enable OIDC auth method
 
 ```console
 $ vault auth enable oidc
+Success! Enabled oidc auth method at: oidc/
 ```
 
+Create a role named `vault-role-okta-default`.
 
 ```console
-$
+$ vault write auth/oidc/role/vault-role-okta-default \
+      bound_audiences="$OKTA_CLIENT_ID" \
+      allowed_redirect_uris="$VAULT_ADDR/ui/vault/auth/oidc/oidc/callback" \
+      allowed_redirect_uris="http://localhost:8250/oidc/callback" \
+      user_claim="sub" \
+      token_policies="default"
+Success! Data written to: auth/oidc/role/vault-role-okta-default
 ```
+
+The allowed_redirect_uris use the **Allowed Callback URLs** defined in the Okta OIDC configuration section. The `user_claim` sets the claim to use to uniquely identify the user.
+
+Configure the oidc auth method.
+
+```console
+$ vault write auth/oidc/config \
+         oidc_discovery_url="https://$OKTA_DOMAIN" \
+         oidc_client_id="$OKTA_CLIENT_ID" \
+         oidc_client_secret="$OKTA_CLIENT_SECRET" \
+         default_role="vault-role-okta-default"
+Success! Data written to: auth/oidc/config
+```
+
+The `oidc_discovery_url`, `oidc_client_id`, and `oidc_client_secret` are set to the variables defined in the Collect Okta configuration settings section.
+
+The `default_role` is set to `vault-role-okta-default`. This role and default policy provide a limited set of access to anyone authenticating via Okta.
+
+List the enabled auth methods.
+
+```console
+$ vault auth list
+Path      Type     Accessor               Description                Version
+----      ----     --------               -----------                -------
+oidc/     oidc     auth_oidc_bf077227     n/a                        n/a
+token/    token    auth_token_cc10dc93    token based credentials    n/a
+```
+
+When typing the command below, a browser window will pop up with the Okta login page.
+
+Enter using **bill@example.com** and the password **Password1!** 
+
+```console
+$ vault login -method=oidc role="vault-role-okta-default"
+Complete the login via your OIDC provider. Launching browser to:
+
+    https://dev-93840644.okta.com/oauth2/v1/authorize?client_id=0oa8aum1b2NjQRMXa5d7&code_challenge=ZvGodK-vyFJc007vOeHM4NOuVfQZWkpb9cuQiA0iXBc&code_challenge_method=S256&nonce=n_yicBN2YD8yYlvyr8DunX&redirect_uri=http%3A%2F%2Flocalhost%3A8250%2Foidc%2Fcallback&response_type=code&scope=openid&state=st_f3Z6FPWHQ5So3t6aafrv
+
+
+Waiting for OIDC authentication to complete...
+WARNING! The VAULT_TOKEN environment variable is set! The value of this
+variable will take precedence; if this is unwanted please unset VAULT_TOKEN or
+update its value accordingly.
+
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You do NOT need to run "vault login"
+again. Future Vault requests will automatically use this token.
+
+Key                  Value
+---                  -----
+token                hvs.CAESIMb6-NCUkVWTtndkwUR8ITLIx3p6iYKaFhTwLsgDvX37Gh4KHGh2cy5xU05SOTJBNHQxaUV6TnY4SW14MUd1ZFc
+token_accessor       1qrErD19eh3C7BbSWaRv0siL
+token_duration       768h
+token_renewable      true
+token_policies       ["default"]
+identity_policies    []
+policies             ["default"]
+token_meta_role      vault-role-okta-default
+```
+
+If you type username and password correctly, the output shows the obtained token.
+
+You were able to authenticate using Okta and received the default policy which provides limited access to Vault.
+
+## Create an external Vault group
+
+To assign different policies to different users based on their Okta group membership you will now configure Vault to match the Okta group membership of the user and assign a more permissive Vault role and policy.
+
+
+Create a role named `vault-role-okta-group-vault-developer`.
+
+```console
+$ vault write auth/oidc/role/vault-role-okta-group-vault-developer \
+      bound_audiences="$OKTA_CLIENT_ID" \
+      allowed_redirect_uris="$VAULT_ADDR/ui/vault/auth/oidc/oidc/callback" \
+      allowed_redirect_uris="http://localhost:8250/oidc/callback" \
+      user_claim="sub" \
+      token_policies="default" \
+      oidc_scopes="groups" \
+      groups_claim="groups"
+Success! Data written to: auth/oidc/role/vault-role-okta-group-vault-developer
+```
+
+This role is defined similarly to the previously created role. The `default` policy is assigned to the token. Additional policies are assigned through any groups that the user claims to belong. The `groups_claim` field defines the value of `groups`. This value is the key in the ID token.
+
+
+Create an external group, named `okta-group-vault-developer` with the `vault-policy-developer-read` policy.
+
+```console
+$ vault write identity/group name="okta-group-vault-developer" type="external" \
+      policies="vault-policy-developer-read" \
+      metadata=responsibility="okta-group-vault-developer"
+Key     Value
+---     -----
+id      3b5bedc2-0c9c-a417-3f44-ea55cf8ffef3
+name    okta-group-vault-developer
+```
+
+Create a variable named `GROUP_ID` to store the id of the `okta-group-vault-developer` group.
+
+```console
+$ export GROUP_ID=$(vault read -field=id identity/group/name/okta-group-vault-developer)
+```
+
+Create a variable named OIDC_AUTH_ACCESSOR to store the accessor of the oidc authentication method.
+
+```console
+$ export OIDC_AUTH_ACCESSOR=$(vault auth list -format=json  | jq -r '."oidc/".accessor')
+```
+
+Create a group alias named `okta-group-vault-developer`.
+
+```console
+$ vault write identity/group-alias name="okta-group-vault-developer" \
+      mount_accessor="$OIDC_AUTH_ACCESSOR" \
+      canonical_id="$GROUP_ID"
+Key             Value
+---             -----
+canonical_id    3b5bedc2-0c9c-a417-3f44-ea55cf8ffef3
+id              8e1fe8e9-d211-7b4f-794c-eff556b5b18f
+```
+
+The okta-group-vault-developer Vault group alias connects the oidc authentication method and the okta-group-vault-developer Vault group with the vault-policy-developer-read policy.
+
+
+Log in with the oidc method as role of a **vault-role-okta-group-vault-developer**.
+
+As before, a new browser window will popup with the Okta login page, just insert the user **bill@example.com** and password **Password1!**
+
+```console
+$ vault login -method=oidc role="vault-role-okta-group-vault-developer"
+Complete the login via your OIDC provider. Launching browser to:
+
+    https://dev-93840644.okta.com/oauth2/v1/authorize?client_id=0oa8aum1b2NjQRMXa5d7&code_challenge=6CGhLo_UCGQ1ASnst4Y_-TM_ImdfmK08E_VQNI_dG6I&code_challenge_method=S256&nonce=n_Z0JIz3pcJdYCnTbMTjwm&redirect_uri=http%3A%2F%2Flocalhost%3A8250%2Foidc%2Fcallback&response_type=code&scope=openid+groups&state=st_dAFYaSUz6okF6dbGwMbf
+
+
+Waiting for OIDC authentication to complete...
+WARNING! The VAULT_TOKEN environment variable is set! The value of this
+variable will take precedence; if this is unwanted please unset VAULT_TOKEN or
+update its value accordingly.
+
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You do NOT need to run "vault login"
+again. Future Vault requests will automatically use this token.
+
+Key                  Value
+---                  -----
+token                hvs.CAESIEXwa1rt6iJdH5Opg6DkUD76Sgfphppo-lNx7s2AylX0Gh4KHGh2cy5xYXpsQ1V3NVJjNjUwNjJ3NFhVZnVmRUE
+token_accessor       hlm62DFBfbltSpb2FQdvQMjE
+token_duration       768h
+token_renewable      true
+token_policies       ["default"]
+identity_policies    ["vault-policy-developer-read"]
+policies             ["default" "vault-policy-developer-read"]
+token_meta_role      vault-role-okta-group-vault-developer
+```
+
+If everything worked, the returned token inherits the `default` policy and is assigned the `vault-policy-developer-read` policy because the value `okta-group-vault-developer` matches the Okta group the user is assigned.
