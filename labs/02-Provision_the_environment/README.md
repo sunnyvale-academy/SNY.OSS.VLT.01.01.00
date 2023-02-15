@@ -1,5 +1,9 @@
 # Provision the environment
 
+For this lab we will use a Kubernetes-based Vault environment that reflects the following diagram:
+
+![](img/env.jpg)
+
 ## Prerequisites 
 
 Having completed labs:
@@ -7,6 +11,10 @@ Having completed labs:
 - [00 - Prerequisites](./labs/00-Prerequisites/README.md)
 
 - [01 - Fork and clone this repo](./labs/01-Fork_and_clone_this_repo/README.md)
+
+- Having downloaded the minikube binary from https://minikube.sigs.k8s.io/docs/start/
+
+- Having installed **kubectl** and **helm** on your PC
 
 ## Minikube
 

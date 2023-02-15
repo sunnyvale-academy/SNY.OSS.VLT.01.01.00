@@ -1,3 +1,5 @@
 **/.DS_Store
 labs/keys.json
 **/*.private
+**/*.dtmp
+**/*.bkp
