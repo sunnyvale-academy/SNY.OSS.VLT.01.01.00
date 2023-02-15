@@ -87,7 +87,7 @@ Check the installation
 
 ```console
 $ kubectl get pods -n vault
-NAME                                   READY   STATUS    RESTARTS   AGE
-vault-agent-injector-f96b59db4-m85wf   0/1     Running   0          31s
-vault-0                                1/1     Running   0          31s
+NAME                                   READY   STATUS    NAME                                    READY   STATUS    RESTARTS   AGE
+vault-0                                 0/1     Running   0          9m54s
+vault-agent-injector-59b9c84fd8-zvqxb   1/1     Running   0          9m55s
 ```
