@@ -1,6 +1,8 @@
 # SNY.OSS.VLT.01.01.00
 Learning HashiCorp Vault
 
+![](img/intro.png)
+
 ## Labs
 
 [00 - Prerequisites](./labs/00-Prerequisites/README.md)
