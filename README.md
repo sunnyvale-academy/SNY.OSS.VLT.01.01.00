@@ -31,6 +31,16 @@ Learning HashiCorp Vault
 
 [12 - OIDC authentication method](./labs/12-OIDC_authentication_method/README.md)
 
+[13 - Inject secrets as container variable](./labs/13-Inject_secrets_as_container_variables/README.md)
+
+[14 - Custom secret engine plugin](./labs/14-Custom_secret_engine_plugin/README.md)
+
+[15 - Rotate database credentials](./labs/15-Rotate_database_credentials/README.md)
+
+[16 - Vault on HashiCorp Cloud Platform](./labs/16-Vault_on_HashiCorp_Cloud_Platform/README.md)
+
+
+
 ## Appendices
 
 [A - Sync copy of forked repo](./appendices/A-Sync_copy_of_forked_repo/README.md)
