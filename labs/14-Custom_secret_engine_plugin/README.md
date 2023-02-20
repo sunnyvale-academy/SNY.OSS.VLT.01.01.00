@@ -14,6 +14,8 @@ Having completed labs:
 
 - [04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
 
+- Vault running on x86 architecture since the plugin we are going to install is provided for this binary version
+
 ## Install the plugin
 
 In this lab we will install the Enigma secret engine for Hashicorp Vault, a custom made secret engine that resables the Enigma cypher machine used in World War II.
