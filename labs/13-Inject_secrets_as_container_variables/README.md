@@ -1,5 +1,22 @@
 # Secrets injection as container variables
 
+
+## Prerequisites 
+
+Having completed labs:
+
+- [00 - Prerequisites](./labs/00-Prerequisites/README.md)
+
+- [01 - Fork and clone this repo](./labs/01-Fork_and_clone_this_repo/README.md)
+
+- [02 - Provision the environment](./labs/02-Provision_the_environment/README.md)
+
+- [03 - Initialize and unseal Vault](./labs/03-Initialize_and_unseal_vault/README.md)
+
+- [04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
+
+## The lab
+
 This lab resambles the picture below
 
 ![describe](img/vault_secret_env_injection.drawio.png)
