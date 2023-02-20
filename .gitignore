@@ -3,3 +3,4 @@ labs/keys.json
 **/*.private
 **/*.dtmp
 **/*.bkp
+**/*.tar.gz

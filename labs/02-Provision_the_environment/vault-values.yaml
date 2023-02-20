@@ -532,7 +532,7 @@ server:
   volumeMounts: 
     - mountPath: /usr/local/libexec/vault
       name: plugins
-      readOnly: true
+      readOnly: false
 
   # Affinity Settings
   # Commenting out or setting as empty the affinity variable, will allow
