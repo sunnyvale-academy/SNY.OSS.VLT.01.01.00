@@ -104,7 +104,7 @@ Success! The access and secret key can now be used to perform any EC2 operations
 To test if the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY provided by Vault let you login on AWS, type the following command (make shure to substitute the placeholders with the actual values returned by Vault). 
 
 ```console
-$ AWS_ACCESS_KEY_ID=<aws_access_key_id> AWS_SECRET_ACCESS_KEY=<aws_secret_key> aws ec2 describe-instances | jq
+$ AWS_ACCESS_KEY_ID=<aws_access_key_id> AWS_SECRET_ACCESS_KEY=<aws_secret_key> aws ec2 describe-instances --region us-east-1 | jq
 {
   "Reservations": []
 }
@@ -122,6 +122,13 @@ To revoke the secret, use vault lease revoke with the lease ID that was outputte
 
 ```console
 $ vault lease revoke aws/creds/my-role/iFvVaQ8Btf46ZnctIZIMmekT
+All revocation operations queued successfully!
+```
+
+of using:
+
+```console
+$ vault lease revoke -prefix aws/creds/my-role
 All revocation operations queued successfully!
 ```
 
