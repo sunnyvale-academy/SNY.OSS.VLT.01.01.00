@@ -2,6 +2,8 @@
 
 Vault can be used as a platform to encrypt/descrypt data on behalf of application clients.
 
+The transit secrets engine enables security teams to fortify data during transit and at rest. So even if an intrusion occurs, your data is encrypted with AES-GCM with a 256-bit AES key or other supported key types. Even if an attacker were able to access the raw data, they would only have encrypted bits. This means attackers would need to compromise multiple systems before exfiltrating data.
+
 In this lab we will demonstrate the use case deplicted in this image:
 
 ![](img/1.png)
@@ -21,3 +23,17 @@ Having completed labs:
 - [04 - Configure the Vault CLI](./labs/04-Configure_Vault_CLI/README.md)
 
 
+## Personas
+
+The end-to-end scenario described in this tutorial involves two personas:
+
+admin with privileged permissions to manage the encryption keys
+apps with un-privileged permissions encrypt/decrypt secrets via APIs
+
+## Configure Transit secrets engine (Persona: admin)
+
+The transit secrets engine must be configured before it can perform its operations. This step is usually done by an **admin** or configuration management tool.
+
+```console
+$ vault secrets enable transit
+```
