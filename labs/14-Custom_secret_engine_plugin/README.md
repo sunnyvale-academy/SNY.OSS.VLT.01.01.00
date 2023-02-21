@@ -22,31 +22,41 @@ In this lab we will install the Enigma secret engine for Hashicorp Vault, a cust
 
 Download the plugin's archive locally:
 
-```console
-$ curl -OL https://github.com/ixe013/benigma/releases/latest/download/enigma.tar.gz -s
-```
-
 Copy the plugin on the Vault's pod
 
 ```console
-$ kubectl cp enigma.tar.gz vault-0:/tmp/enigma.tar.gz -c vault -n vault
+$ kubectl cp enigma.1.0.0 vault-0:/usr/local/libexec/vault/enigma.1.0.0 -c vault -n vault
 ```
 
-Extract Enigma's binary to the plug-in directory:
+Register the plugin-in in Vault with the following command:
 
 ```console
-$ kubectl exec -ti vault-0 -n vault -- tar xfzv /tmp/enigma.tar.gz -C /usr/local/libexec/vault
-enigma.1.0.0
-```
-
-As any other custom secret engine, 
-
-```console
-$ curl -i --request PUT $VAULT_ADDR/v1/sys/plugins/catalog/secret/enigma --header "X-Vault-Token: $(vault print token)" --data @- << EOF
+$ curl -i --request PUT 192.168.39.152:30534/v1/sys/plugins/catalog/secret/enigma --header "X-Vault-Token: $(vault print token)" --data @- << EOF
 {
   "type":"secret",
   "command":"$(tar tfz enigma.tar.gz)",
-  "sha256":"$(/usr/local/libexec/vault/$(tar tfz enigma.tar.gz) hash)"
+  "sha256":"$(./$(tar tfz enigma.tar.gz) hash)"
 }
 EOF
+HTTP/1.1 204 No Content
+Cache-Control: no-store
+Content-Type: application/json
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Date: Mon, 20 Feb 2023 21:51:27 GMT
 ```
+
+Check if the plugin has been registered:
+
+```console
+$ vault plugin list | grep enigma
+enigma                               secret      n/a
+```
+
+kubectl exec -ti vault-0 -- apk add --allow-untrusted 
+
+The plugin can now be enabled like any other secret engine:
+
+```console
+$ vault secrets enable enigma
+```
+
