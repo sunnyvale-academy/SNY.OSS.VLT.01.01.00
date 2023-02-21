@@ -84,13 +84,6 @@ Key       Value
 lights    MFNCZBBFZM
 ```
 
-```console
-$ vault write enigma/instances/boat keyboard=HELLOWORLD
-Key       Value
----       -----
-lights    MFNCZBBFZM
-```
-
 Type the ciphertext on the submarine's keyboard
 
 

@@ -39,6 +39,8 @@ Learning HashiCorp Vault
 
 [16 - Vault on HashiCorp Cloud Platform](./labs/16-Vault_on_HashiCorp_Cloud_Platform/README.md)
 
+[17 - Custom authentication methods](./labs/17-Custom_authentication_methods/README.md)
+
 
 
 ## Appendices
