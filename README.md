@@ -41,6 +41,8 @@ Learning HashiCorp Vault
 
 [17 - Custom authentication methods](./labs/17-Custom_authentication_methods/README.md)
 
+[18 - Encryption as a Service with Vault](./labs/18-Encryption_as_a_Service_with_Vault/README.md)
+
 
 
 ## Appendices
