@@ -64,4 +64,12 @@ token_meta_fruit     banana
 
 The response is a standard auth response with some token metadata.
 
-This is an example Vault Plugin that should be use for learning purposes, do not use in production!
+You can try to login with this token
+
+```console
+$ unset VAULT_TOKEN && vault login hvs.CAESIMKlB4SKFx2-86kYbYPGR18kGhH8DBhzqwBEtfJh3EbBGh4KHGh2cy5YM0lTOGFNSUpXa2tDY096TDNOZmdoOXQ
+Success! You are now authenticated. The token information displayed below.
+...
+```
+
+This is an example Vault Plugin that is use for learning purposes, do not use in production!
