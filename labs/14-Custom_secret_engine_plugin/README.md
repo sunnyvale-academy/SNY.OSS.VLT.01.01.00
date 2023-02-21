@@ -20,9 +20,7 @@ Having completed labs:
 
 In this lab we will install the Enigma secret engine for Hashicorp Vault, a custom made secret engine that resables the Enigma cypher machine used in World War II.
 
-Download the plugin's archive locally:
-
-Copy the plugin on the Vault's pod
+The secret engine plugin has already ben downloaded along this repo, jopy it on the Vault's pod
 
 ```console
 $ kubectl cp enigma.1.0.0 vault-0:/usr/local/libexec/vault/enigma.1.0.0 -c vault -n vault
@@ -52,11 +50,71 @@ $ vault plugin list | grep enigma
 enigma                               secret      n/a
 ```
 
-kubectl exec -ti vault-0 -- apk add --allow-untrusted 
-
 The plugin can now be enabled like any other secret engine:
 
 ```console
 $ vault secrets enable enigma
+Success! Enabled the enigma secrets engine at: enigma/
 ```
 
+The Enigma machine implements a substitution cipher, where the key is the machine model (rotors and plugboard) and the initial position of the rotors. It is a symetric encryption scheme where the sender and receiver must share common parameters.
+
+Create the "boat" instance
+
+```console
+$ vault write enigma/models/M4/instance id=boat
+Success! Data written to: enigma/models/M4/instance
+```
+
+Create the "submarine" instance
+
+```console
+$ vault write enigma/models/M4/instance id=submarine
+Success! Data written to: enigma/models/M4/instance
+```
+
+According to how the Enigma encryption model works, the two instances must be kept in sync for one to be able to process text sent to or received by the other.
+
+Type the plaintext on the boat's keyboard
+
+```console
+$ vault write enigma/instances/boat keyboard=HELLOWORLD
+Key       Value
+---       -----
+lights    MFNCZBBFZM
+```
+
+```console
+$ vault write enigma/instances/boat keyboard=HELLOWORLD
+Key       Value
+---       -----
+lights    MFNCZBBFZM
+```
+
+Type the ciphertext on the submarine's keyboard
+
+
+```console
+$ vault write enigma/instances/submarine keyboard=MFNCZBBFZM
+Key       Value
+---       -----
+lights    HELLOWORLD
+```
+
+Prepare a reply on the submarine's keyboard
+
+```console
+$ vault write enigma/instances/submarine keyboard=GOODBYE
+Key       Value
+---       -----
+lights    ZNQALNO
+```
+
+```console
+$ vault write enigma/instances/boat keyboard=ZNQALNO
+Key       Value
+---       -----
+lights    GOODBYE
+```
+
+In this lab we showed ho to install and use a custom secret engine.
