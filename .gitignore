@@ -4,3 +4,4 @@ labs/keys.json
 **/*.dtmp
 **/*.bkp
 **/*.tar.gz
+**/*.tgz
