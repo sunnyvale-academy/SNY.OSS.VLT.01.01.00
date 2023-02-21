@@ -29,7 +29,7 @@ $ kubectl cp enigma.1.0.0 vault-0:/usr/local/libexec/vault/enigma.1.0.0 -c vault
 Register the plugin-in in Vault with the following command:
 
 ```console
-$ curl -i --request PUT 192.168.39.152:30534/v1/sys/plugins/catalog/secret/enigma --header "X-Vault-Token: $(vault print token)" --data @- << EOF
+$ curl -i --request PUT localhost:8200/v1/sys/plugins/catalog/secret/enigma --header "X-Vault-Token: $(vault print token)" --data @- << EOF
 {
   "type":"secret",
   "command":"$(tar tfz enigma.tar.gz)",
