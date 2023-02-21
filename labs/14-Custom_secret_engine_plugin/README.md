@@ -18,7 +18,7 @@ Having completed labs:
 
 ## Install the plugin
 
-In this lab we will install the Enigma secret engine for Hashicorp Vault, a custom made secret engine that resables the Enigma cypher machine used in World War II.
+In this lab we will install the Enigma secret engine for Hashicorp Vault, a custom made secret engine that resables the Enigma cypher machine used in World War II (reference: https://github.com/ixe013/benigma).
 
 The secret engine plugin has already ben downloaded along this repo, jopy it on the Vault's pod
 
