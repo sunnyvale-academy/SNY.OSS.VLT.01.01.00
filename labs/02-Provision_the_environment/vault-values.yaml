@@ -34,7 +34,7 @@ global:
   serverTelemetry:
     # Enable integration with the Prometheus Operator
     # See the top level serverTelemetry section below before enabling this feature.
-    prometheusOperator: false
+    prometheusOperator: true
 
 injector:
   # True if you want to enable vault agent injection.
@@ -720,9 +720,9 @@ server:
         address = "[::]:8200"
         cluster_address = "[::]:8201"
         # Enable unauthenticated metrics access (necessary for Prometheus Operator)
-        #telemetry {
-        #  unauthenticated_metrics_access = "true"
-        #}
+        telemetry {
+          unauthenticated_metrics_access = "true"
+        }
       }
       storage "file" {
         path = "/vault/data"
@@ -740,10 +740,10 @@ server:
       #   crypto_key  = "vault-helm-unseal-key"
       #}
       # Example configuration for enabling Prometheus metrics in your config.
-      #telemetry {
-      #  prometheus_retention_time = "30s",
-      #  disable_hostname = true
-      #}
+      telemetry {
+        prometheus_retention_time = "30s",
+        disable_hostname = true
+      }
   # Run Vault in "HA" mode. There are no storage requirements unless the audit log
   # persistence is required.  In HA mode Vault will configure itself to use Consul
   # for its storage backend.  The default configuration provided will work the Consul
@@ -785,9 +785,9 @@ server:
           address = "[::]:8200"
           cluster_address = "[::]:8201"
           # Enable unauthenticated metrics access (necessary for Prometheus Operator)
-          #telemetry {
-          #  unauthenticated_metrics_access = "true"
-          #}
+          telemetry {
+            unauthenticated_metrics_access = "true"
+          }
         }
         storage "raft" {
           path = "/vault/data"
@@ -825,10 +825,10 @@ server:
       # Example configuration for enabling Prometheus metrics.
       # If you are using Prometheus Operator you can enable a ServiceMonitor resource below.
       # You may wish to enable unauthenticated metrics in the listener block above.
-      #telemetry {
-      #  prometheus_retention_time = "30s",
-      #  disable_hostname = true
-      #}
+      telemetry {
+        prometheus_retention_time = "30s",
+        disable_hostname = true
+      }
     # A disruption budget limits the number of pods of a replicated application
     # that are down simultaneously from voluntary disruptions
     disruptionBudget:
@@ -1084,7 +1084,7 @@ serverTelemetry:
     #  https://github.com/prometheus-operator/kube-prometheus
 
     # Enable deployment of the Vault Server ServiceMonitor CustomResource.
-    enabled: false
+    enabled: true
 
     # Selector labels to add to the ServiceMonitor.
     # When empty, defaults to:

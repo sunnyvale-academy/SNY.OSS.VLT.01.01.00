@@ -32,8 +32,8 @@ Register the plugin-in in Vault with the following command:
 $ curl -i --request PUT localhost:8200/v1/sys/plugins/catalog/secret/enigma --header "X-Vault-Token: $(vault print token)" --data @- << EOF
 {
   "type":"secret",
-  "command":"$(tar tfz enigma.tar.gz)",
-  "sha256":"$(./$(tar tfz enigma.tar.gz) hash)"
+  "command":"enigma.1.0.0",
+  "sha256":"$(./enigma.1.0.0 hash)"
 }
 EOF
 HTTP/1.1 204 No Content
@@ -111,3 +111,5 @@ lights    GOODBYE
 ```
 
 In this lab we showed ho to install and use a custom secret engine.
+
+How to write a custom plugin? Here https://developer.hashicorp.com/vault/docs/plugins/plugin-development the official doc.

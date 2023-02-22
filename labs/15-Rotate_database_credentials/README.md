@@ -129,3 +129,20 @@ lease_renewable    true
 password           -ZjzeblshsqGQgB4qO1V
 username           v-root-my-role-HBedAdOnF96OVzujSGrV-1676975908
 ```
+
+Test the database credentials:
+
+```console
+$ kubectl run my-postgres-postgresql-client --rm \
+--tty \
+-i \
+--restart='Never' \
+--namespace vault \
+--image docker.io/bitnami/postgresql:15.2.0-debian-11-r2 \
+--env="PGPASSWORD=-ZjzeblshsqGQgB4qO1V" \
+--command \
+-- psql --host my-postgres-postgresql -U v-root-my-role-HBedAdOnF96OVzujSGrV-1676975908 -d postgres -p 5432
+If you don't see a command prompt, try pressing enter.
+
+postgres=> 
+```

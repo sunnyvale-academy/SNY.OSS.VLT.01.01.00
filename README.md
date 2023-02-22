@@ -45,6 +45,8 @@ Learning HashiCorp Vault
 
 [19 - Vault as Certification Authority](./labs/19-Vault_as_Certification_Authority/README.md)
 
+[20 - Vault monitoring with Prometheus stack](./labs/20-Vault_monitoring_with_Prometheus_stack/README.md)
+
 
 
 ## Appendices

@@ -273,3 +273,13 @@ serial_number       13:10:43:6e:28:80:1b:18:7e:01:d7:36:2f:10:3e:38:b1:4a:dd:94
 ```
 
 The response contains the PEM-encoded private key, key type and certificate serial number.
+
+```console
+$ vault write pki_int/issue/example-dot-com common_name="test.sunnyvale.it" ttl="24h"
+Error writing data to pki_int/issue/example-dot-com: Error making API request.
+
+URL: PUT http://localhost:8200/v1/pki_int/issue/example-dot-com
+Code: 400. Errors:
+
+* common name test.sunnyvale.it not allowed by this role
+```
