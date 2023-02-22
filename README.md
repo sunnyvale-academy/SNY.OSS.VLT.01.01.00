@@ -43,6 +43,8 @@ Learning HashiCorp Vault
 
 [18 - Encryption as a Service with Vault](./labs/18-Encryption_as_a_Service_with_Vault/README.md)
 
+[19 - Vault as Certification Authority](./labs/19-Vault_as_Certification_Authority/README.md)
+
 
 
 ## Appendices
